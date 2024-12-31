@@ -5,8 +5,8 @@ import { renderMarkdown } from '~/lib/markdown.server'
 
 export function meta({}: Route.MetaArgs) {
 	return [
-		{ title: 'New React Router App' },
-		{ name: 'description', content: 'Welcome to React Router!' }
+		{ title: 'Ikaleio' },
+		{ name: 'description', content: '关于 Ikaleio' }
 	]
 }
 

@@ -15,6 +15,15 @@ async function createMarkdownRenderer() {
 		})
 	)
 
+	// 添加自定义链接渲染
+	md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
+		tokens[idx].attrPush([
+			'class',
+			'text-blue-500 hover:text-blue-600 transition-colors'
+		])
+		return self.renderToken(tokens, idx, options)
+	}
+
 	return md
 }
 

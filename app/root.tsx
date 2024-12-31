@@ -21,7 +21,17 @@ export const links: Route.LinksFunction = () => [
 		rel: 'stylesheet',
 		href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'
 	},
-	{ rel: 'stylesheet', href: stylesheet }
+	{ rel: 'stylesheet', href: stylesheet },
+	{
+		rel: 'preload',
+		href: 'https://ice.frostsky.com/2025/01/01/a708ffdfddedf422ff65711712252614.webp',
+		as: 'image'
+	},
+	{
+		rel: 'preload',
+		href: 'https://ice.frostsky.com/2025/01/01/a0321a08e8f6ce0f5c757bdad9e4853b.webp',
+		as: 'image'
+	}
 ]
 
 export function Layout({ children }: { children: React.ReactNode }) {

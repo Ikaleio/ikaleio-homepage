@@ -12,7 +12,7 @@ export function meta({}: Route.MetaArgs) {
 
 export async function loader({ context }: Route.LoaderArgs) {
 	const description = await renderMarkdown(`
-来自中国的高二学生，前 OIer，具有一定全栈开发和运维经验。技术栈：TypeScript/JavaScript, Bun.js, Next.js, Remix, Docker, Python
+来自中国的高二学生，前 OIer，具有一定全栈开发和运维经验。技术栈：TypeScript/JavaScript, Bun.js, Next.js, Remix, Docker, Python。
 
 通常使用 Telegram，你一般可以在那里找到我。
 
@@ -22,7 +22,7 @@ export async function loader({ context }: Route.LoaderArgs) {
 	const data = {
 		name: 'Ikaleio',
 		title: '独立开发者',
-		bio: 'To infinte and beyond.',
+		bio: 'To infinity and beyond.',
 		description,
 		avatarUrl: `https://ice.frostsky.com/2025/01/01/a708ffdfddedf422ff65711712252614.webp`,
 		backgroundUrl:

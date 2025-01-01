@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import * as icons from 'simple-icons'
 import { Card, CardContent } from '~/components/ui/card'

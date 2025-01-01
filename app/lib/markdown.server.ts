@@ -1,5 +1,4 @@
 import MarkdownIt from 'markdown-it'
-import Shiki from '@shikijs/markdown-it'
 
 let md: MarkdownIt | null = null
 
@@ -9,11 +8,7 @@ async function createMarkdownRenderer() {
 	md = new MarkdownIt({
 		html: true,
 		breaks: true
-	}).use(
-		await Shiki({
-			theme: 'github-dark'
-		})
-	)
+	})
 
 	// 添加自定义链接渲染
 	md.renderer.rules.link_open = (tokens, idx, options, env, self) => {

@@ -1,0 +1,67 @@
+- generic [active] [ref=f1e1]:
+  - banner [ref=f1e2]:
+    - generic [ref=f1e3]: Ikaleio
+    - generic [ref=f1e4]:
+      - button "Toggle language" [ref=f1e5] [cursor=pointer]:
+        - generic [ref=f1e10]: 中
+      - button "Toggle theme" [ref=f1e11] [cursor=pointer]
+  - main [ref=f1e15]:
+    - generic [ref=f1e17]:
+      - img "Ikaleio" [ref=f1e19]
+      - heading "Ikaleio" [level=1] [ref=f1e21]
+      - paragraph [ref=f1e23]: Independent Developer
+      - paragraph [ref=f1e25]: A college student from China. Former OIer with full-stack development and DevOps experience.
+      - paragraph [ref=f1e27]: TypeScript / React / Bun / Docker / Python
+      - generic [ref=f1e28]:
+        - link "GitHub" [ref=f1e29] [cursor=pointer]:
+          - /url: https://github.com/Ikaleio
+        - link "Telegram" [ref=f1e33] [cursor=pointer]:
+          - /url: https://t.me/Ikaleio
+    - generic [ref=f1e37]:
+      - generic [ref=f1e38]:
+        - heading "Projects" [level=2] [ref=f1e127]
+        - paragraph [ref=f1e40]: Recent open-source work
+      - generic [ref=f1e41]:
+        - link [ref=f1e42] [cursor=pointer]:
+          - /url: https://github.com/Ikaleio/monoize
+          - heading "monoize" [level=3] [ref=f1e44]
+          - generic [ref=f1e49]:
+            - generic [ref=f1e50]: Rust
+            - generic [ref=f1e52]: "3"
+        - link [ref=f1e55] [cursor=pointer]:
+          - /url: https://github.com/Ikaleio/argon-luogu
+          - heading "argon-luogu" [level=3] [ref=f1e57]
+          - paragraph [ref=f1e62]: 适用于洛谷的亚克力美化样式，适配洛谷新前端
+          - generic [ref=f1e63]:
+            - generic [ref=f1e64]: Stylus
+            - generic [ref=f1e66]: "38"
+        - link [ref=f1e69] [cursor=pointer]:
+          - /url: https://github.com/Ikaleio/transit
+          - heading "transit" [level=3] [ref=f1e71]
+          - paragraph [ref=f1e76]: Minecraft reverse proxy software written with TypeScript and Bun.
+          - generic [ref=f1e77]:
+            - generic [ref=f1e78]: TypeScript
+            - generic [ref=f1e80]: "10"
+        - link [ref=f1e83] [cursor=pointer]:
+          - /url: https://github.com/Ikaleio/skills
+          - heading "skills" [level=3] [ref=f1e85]
+          - paragraph [ref=f1e90]: Global custom skills for Codex and compatible agents
+        - link [ref=f1e92] [cursor=pointer]:
+          - /url: https://github.com/Ikaleio/ikapb-oss
+          - heading "ikapb-oss" [level=3] [ref=f1e94]
+          - paragraph [ref=f1e99]: 2026 冬日绘版所用后端。
+          - generic [ref=f1e100]:
+            - generic [ref=f1e101]: Rust
+            - generic [ref=f1e103]: "17"
+    - generic [ref=f1e106]:
+      - generic [ref=f1e107]:
+        - heading "Contact" [level=2] [ref=f1e128]
+        - paragraph [ref=f1e111]: Feel free to reach out
+        - generic [ref=f1e112]:
+          - link "GitHub" [ref=f1e113] [cursor=pointer]:
+            - /url: https://github.com/Ikaleio
+          - link "Telegram" [ref=f1e117] [cursor=pointer]:
+            - /url: https://t.me/Ikaleio
+          - link "Email" [ref=f1e129] [cursor=pointer]:
+            - /url: mailto:me@ikale.io
+      - paragraph [ref=f1e126]: Built with ❤

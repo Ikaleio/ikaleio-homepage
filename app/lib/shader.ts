@@ -141,7 +141,7 @@ void main() {
   // Accent tint near cursor and spotlight
   vec3 accent = vec3(0.388, 0.400, 0.945); // indigo
   float accentMix = (cursorField + spotField) * dots * 0.25;
-  color = mix(color, accent, accentMix * u_darkMode);
+  color = mix(color, accent, accentMix);
 
   // Vignette
   float vignette = smoothstep(1.12, 0.30, length(p * vec2(0.70, 1.0)));

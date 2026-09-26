@@ -8,6 +8,19 @@ import {
 
 type Theme = "light" | "dark";
 
+// Matches --background in app.css.
+export const themeColors: Record<Theme, string> = {
+  light: "#fafafa",
+  dark: "#09090b",
+};
+
+function applyTheme(theme: Theme) {
+  document.documentElement.classList.toggle("dark", theme === "dark");
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute("content", themeColors[theme]);
+}
+
 interface ThemeContextValue {
   theme: Theme;
   setTheme: (theme: Theme) => void;
@@ -24,20 +37,20 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const stored = localStorage.getItem("theme") as Theme | null;
     if (stored && (stored === "light" || stored === "dark")) {
       setThemeState(stored);
-      document.documentElement.classList.toggle("dark", stored === "dark");
+      applyTheme(stored);
     } else {
       const prefersDark = window.matchMedia(
         "(prefers-color-scheme: dark)"
       ).matches;
       setThemeState(prefersDark ? "dark" : "light");
-      document.documentElement.classList.toggle("dark", prefersDark);
+      applyTheme(prefersDark ? "dark" : "light");
     }
   }, []);
 
   const setTheme = useCallback((t: Theme) => {
     setThemeState(t);
     localStorage.setItem("theme", t);
-    document.documentElement.classList.toggle("dark", t === "dark");
+    applyTheme(t);
   }, []);
 
   const toggleTheme = useCallback(() => {

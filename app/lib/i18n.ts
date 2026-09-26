@@ -1,5 +1,19 @@
 export type Language = "zh" | "en";
 
+export const defaultLanguage: Language = "zh";
+
+export const languageCookie = "lang";
+
+export const htmlLang: Record<Language, string> = { zh: "zh-CN", en: "en" };
+
+export function parseLanguageCookie(cookieHeader: string | null): Language {
+  const value = cookieHeader
+    ?.split(";")
+    .map((part) => part.trim().split("="))
+    .find(([name]) => name === languageCookie)?.[1];
+  return value === "zh" || value === "en" ? value : defaultLanguage;
+}
+
 export const translations = {
   zh: {
     heroName: "Ikaleio",
@@ -13,11 +27,6 @@ export const translations = {
     contactGithub: "GitHub",
     contactTelegram: "Telegram",
     contactEmail: "邮箱",
-    stars: "星标",
-    language: "语言",
-    themeLight: "浅色",
-    themeDark: "深色",
-    viewProject: "查看项目",
     madeWith: "用 ❤ 构建",
   },
   en: {
@@ -33,11 +42,6 @@ export const translations = {
     contactGithub: "GitHub",
     contactTelegram: "Telegram",
     contactEmail: "Email",
-    stars: "stars",
-    language: "Language",
-    themeLight: "Light",
-    themeDark: "Dark",
-    viewProject: "View Project",
     madeWith: "Built with ❤",
   },
 } as const;

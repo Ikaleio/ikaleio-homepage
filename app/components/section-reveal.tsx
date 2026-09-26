@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 interface SectionRevealProps {
   children: ReactNode;
   className?: string;
-  delay?: number;
 }
 
 const containerVariants = {
@@ -17,7 +16,7 @@ const containerVariants = {
   },
 };
 
-export const itemVariants = {
+const itemVariants = {
   hidden: {
     y: 40,
     opacity: 0,
@@ -36,18 +35,13 @@ export const itemVariants = {
   },
 };
 
-export function SectionReveal({
-  children,
-  className = "",
-  delay = 0,
-}: SectionRevealProps) {
+export function SectionReveal({ children, className = "" }: SectionRevealProps) {
   return (
     <motion.div
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ delayChildren: delay }}
       className={className}
     >
       {children}
@@ -66,5 +60,25 @@ export function RevealItem({
     <motion.div variants={itemVariants} className={className}>
       {children}
     </motion.div>
+  );
+}
+
+// CSS-driven stagger for above-the-fold content, which must be visible before hydration.
+export function RiseIn({
+  index,
+  children,
+  className = "",
+}: {
+  index: number;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`animate-rise-in ${className}`}
+      style={{ animationDelay: `${50 + index * 100}ms` }}
+    >
+      {children}
+    </div>
   );
 }

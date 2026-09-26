@@ -5,12 +5,28 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteLoaderData,
 } from "react-router";
+import { MotionConfig } from "framer-motion";
 
 import type { Route } from "./+types/root";
 import stylesheet from "./app.css?url";
-import { ThemeProvider } from "~/hooks/use-theme";
+import { ThemeProvider, themeColors } from "~/hooks/use-theme";
 import { LanguageProvider } from "~/hooks/use-language";
+import { defaultLanguage, htmlLang, parseLanguageCookie } from "~/lib/i18n";
+
+// Runs before first paint to apply the stored or system theme without a flash.
+const themeScript = `(function () {
+  try {
+    var stored = localStorage.getItem('theme');
+    var dark = stored === 'light' || stored === 'dark'
+      ? stored === 'dark'
+      : matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.classList.toggle('dark', dark);
+    document.querySelector('meta[name="theme-color"]').content =
+      dark ? '${themeColors.dark}' : '${themeColors.light}';
+  } catch (e) {}
+})()`;
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -29,21 +45,31 @@ export const links: Route.LinksFunction = () => [
   { rel: "apple-touch-icon", href: "/icons/icon-192.png" },
 ];
 
+export function loader({ request }: Route.LoaderArgs) {
+  return { language: parseLanguageCookie(request.headers.get("Cookie")) };
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const language =
+    useRouteLoaderData<typeof loader>("root")?.language ?? defaultLanguage;
+
   return (
-    <html lang="zh-CN" className="dark bg-background" suppressHydrationWarning>
+    <html
+      lang={htmlLang[language]}
+      className="dark bg-background"
+      suppressHydrationWarning
+    >
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#09090b" />
+        <meta
+          name="theme-color"
+          content={themeColors.dark}
+          suppressHydrationWarning
+        />
         <Meta />
         <Links />
-        {/* Inline script to prevent FOUC on theme */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.remove('dark')}else if(t==='dark'){document.documentElement.classList.add('dark')}else if(!window.matchMedia('(prefers-color-scheme:dark)').matches){document.documentElement.classList.remove('dark')}}catch(e){}})()`,
-          }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-screen">
         {children}
@@ -54,13 +80,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function App() {
+export default function App({ loaderData }: Route.ComponentProps) {
   return (
-    <ThemeProvider>
-      <LanguageProvider>
-        <Outlet />
-      </LanguageProvider>
-    </ThemeProvider>
+    <MotionConfig reducedMotion="user">
+      <ThemeProvider>
+        <LanguageProvider initialLanguage={loaderData.language}>
+          <Outlet />
+        </LanguageProvider>
+      </ThemeProvider>
+    </MotionConfig>
   );
 }
 

@@ -1,53 +1,23 @@
-# Welcome to React Router!
+# ikaleio-homepage
 
-A modern, production-ready template for building full-stack React applications using React Router.
+Ikaleio 的个人主页：React Router 7（SSR）+ Tailwind + framer-motion，部署在 Vercel。
 
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
+## 开发
 
 ```bash
-npm install
+bun install
+GITHUB_TOKEN=$(gh auth token) bun run dev   # http://localhost:3000
+bun run typecheck
+bun run build                               # 产出 .vercel/output（Vercel Build Output API）
 ```
 
-### Development
+## 项目列表
 
-Start the development server with HMR:
+「项目」区自动展示 GitHub 主页上**置顶（pinned）**的仓库，最多 6 个。想换展示内容，去 GitHub 主页调整置顶即可，不用改代码。
 
-```bash
-npm run dev
-```
+数据通过 GitHub GraphQL API 获取，服务端需要环境变量 `GITHUB_TOKEN`：
 
-Your application will be available at `http://localhost:5173`.
+- 在 GitHub 创建一个 classic token，不勾选任何 scope，过期时间选 No expiration；
+- 在 Vercel 项目 Settings → Environment Variables 中添加 `GITHUB_TOKEN`。
 
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjacob-ebey%2Freact-router-templates%2Ftree%2Fmain%2Fvercel&project-name=my-react-router-app&repository-name=my-react-router-app)
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+未配置 token 或请求失败时，「项目」区会隐藏，页面其他部分不受影响。结果在每个服务端实例内缓存 1 小时。

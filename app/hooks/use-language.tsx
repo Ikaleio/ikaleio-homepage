@@ -1,39 +1,36 @@
+import { createContext, useCallback, useContext, useState } from "react";
 import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { type Language, type TranslationKey, translations } from "~/lib/i18n";
+  type Language,
+  type TranslationKey,
+  htmlLang,
+  languageCookie,
+  translations,
+} from "~/lib/i18n";
 
 interface LanguageContextValue {
   language: Language;
-  setLanguage: (lang: Language) => void;
   toggleLanguage: () => void;
   t: (key: TranslationKey) => string;
 }
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("zh");
-
-  useEffect(() => {
-    const stored = localStorage.getItem("language") as Language | null;
-    if (stored && (stored === "zh" || stored === "en")) {
-      setLanguageState(stored);
-    }
-  }, []);
-
-  const setLanguage = useCallback((lang: Language) => {
-    setLanguageState(lang);
-    localStorage.setItem("language", lang);
-  }, []);
+export function LanguageProvider({
+  initialLanguage,
+  children,
+}: {
+  initialLanguage: Language;
+  children: React.ReactNode;
+}) {
+  const [language, setLanguage] = useState(initialLanguage);
 
   const toggleLanguage = useCallback(() => {
-    setLanguage(language === "zh" ? "en" : "zh");
-  }, [language, setLanguage]);
+    const next = language === "zh" ? "en" : "zh";
+    setLanguage(next);
+    // A cookie (not localStorage) so the server renders this language next time.
+    document.cookie = `${languageCookie}=${next}; path=/; max-age=31536000; samesite=lax`;
+    document.documentElement.lang = htmlLang[next];
+  }, [language]);
 
   const t = useCallback(
     (key: TranslationKey) => {
@@ -43,9 +40,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <LanguageContext.Provider
-      value={{ language, setLanguage, toggleLanguage, t }}
-    >
+    <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );

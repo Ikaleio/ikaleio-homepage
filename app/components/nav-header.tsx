@@ -65,7 +65,6 @@ export function NavHeader() {
             key={isDark ? "moon" : "sun"}
             initial={{ rotate: -90, opacity: 0 }}
             animate={{ rotate: 0, opacity: 1 }}
-            exit={{ rotate: 90, opacity: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
             {isDark ? (

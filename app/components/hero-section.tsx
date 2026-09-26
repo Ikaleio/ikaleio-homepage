@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useLanguage } from "~/hooks/use-language";
-import { SectionReveal, RevealItem } from "~/components/section-reveal";
+import { RiseIn } from "~/components/section-reveal";
 import { Github, Send } from "lucide-react";
 
 const shardShapes = [
@@ -202,7 +202,6 @@ export function HeroSection() {
   const easterEggActiveRef = useRef(false);
   const clickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const avatarRef = useRef<HTMLImageElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
 
   const handleDoubleClick = async () => {
     if (isSpinning || easterEggActiveRef.current) return;
@@ -377,13 +376,10 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="flex min-h-[85vh] flex-col items-center justify-center px-6 py-24"
-    >
-      <SectionReveal className="flex max-w-2xl flex-col items-center gap-6 text-center">
+    <section className="flex min-h-[85vh] flex-col items-center justify-center px-6 py-24">
+      <div className="flex max-w-2xl flex-col items-center gap-6 text-center">
         {/* Avatar */}
-        <RevealItem>
+        <RiseIn index={0}>
           <motion.img
             ref={avatarRef}
             src="/images/avatar.jpg"
@@ -395,50 +391,50 @@ export function HeroSection() {
             onDoubleClick={handleDoubleClick}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
           />
-        </RevealItem>
+        </RiseIn>
 
         {/* Name with shimmer */}
-        <RevealItem>
+        <RiseIn index={1}>
           <h1
             data-smash-target
             className="text-shimmer font-serif text-5xl font-bold tracking-tight md:text-6xl"
           >
             {t("heroName")}
           </h1>
-        </RevealItem>
+        </RiseIn>
 
         {/* Title */}
-        <RevealItem>
+        <RiseIn index={2}>
           <p
             data-smash-target
             className="text-readable text-lg font-medium text-muted-foreground md:text-xl"
           >
             {t("heroTitle")}
           </p>
-        </RevealItem>
+        </RiseIn>
 
         {/* Bio */}
-        <RevealItem>
+        <RiseIn index={3}>
           <p
             data-smash-target
             className="text-readable max-w-lg text-balance leading-relaxed text-foreground/80"
           >
             {t("heroBio")}
           </p>
-        </RevealItem>
+        </RiseIn>
 
         {/* Tech stack */}
-        <RevealItem>
+        <RiseIn index={4}>
           <p
             data-smash-target
             className="text-readable font-mono text-sm tracking-wide text-muted-foreground"
           >
             {t("heroStack")}
           </p>
-        </RevealItem>
+        </RiseIn>
 
         {/* Social icons */}
-        <RevealItem className="flex gap-3 pt-2">
+        <RiseIn index={5} className="flex gap-3 pt-2">
           <motion.a
             data-smash-target
             href="https://github.com/Ikaleio"
@@ -465,8 +461,8 @@ export function HeroSection() {
           >
             <Send className="h-5 w-5" />
           </motion.a>
-        </RevealItem>
-      </SectionReveal>
+        </RiseIn>
+      </div>
     </section>
   );
 }

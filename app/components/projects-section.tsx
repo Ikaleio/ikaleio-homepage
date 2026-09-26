@@ -12,29 +12,13 @@ interface ProjectCardProps {
   index: number;
 }
 
-// Language color map (subset)
-const langColors: Record<string, string> = {
-  TypeScript: "#3178c6",
-  JavaScript: "#f7df1e",
-  Python: "#3572A5",
-  Rust: "#dea584",
-  Go: "#00ADD8",
-  Java: "#b07219",
-  Kotlin: "#A97BFF",
-  HTML: "#e34c26",
-  CSS: "#563d7c",
-  Shell: "#89e051",
-  Vue: "#41b883",
-};
-
 function ProjectCard({ repo, index }: ProjectCardProps) {
-  const { t } = useLanguage();
   const { setSpotlight, clearSpotlight } = useShaderSpotlight();
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
       const x = e.clientX / window.innerWidth;
-      const y = e.clientY / window.innerHeight;
+      const y = 1 - e.clientY / window.innerHeight;
       setSpotlight(x, y);
     },
     [setSpotlight]
@@ -86,10 +70,10 @@ function ProjectCard({ repo, index }: ProjectCardProps) {
             <span
               className="inline-block h-3 w-3 rounded-full"
               style={{
-                backgroundColor: langColors[repo.language] || "#6b7280",
+                backgroundColor: repo.language.color ?? "#6b7280",
               }}
             />
-            {repo.language}
+            {repo.language.name}
           </span>
         )}
         {repo.stars > 0 && (
@@ -109,6 +93,8 @@ interface ProjectsSectionProps {
 
 export function ProjectsSection({ repos }: ProjectsSectionProps) {
   const { t } = useLanguage();
+
+  if (repos.length === 0) return null;
 
   return (
     <section className="mx-auto w-full max-w-4xl px-6 py-24">

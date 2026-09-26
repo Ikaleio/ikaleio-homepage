@@ -42,22 +42,25 @@ export function ContactSection() {
         </RevealItem>
 
         <RevealItem className="flex flex-wrap justify-center gap-4">
-          {links.map((link) => (
-            <motion.a
-              data-smash-target
-              key={link.label}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-border bg-card/50 px-5 py-2.5 text-sm font-medium text-foreground backdrop-blur-sm transition-colors hover:border-primary/50 hover:text-primary"
-              whileHover={{ y: -2, scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            >
-              <link.icon className="h-4 w-4" />
-              {link.label}
-            </motion.a>
-          ))}
+          {links.map((link) => {
+            const isWebLink = link.href.startsWith("https://");
+            return (
+              <motion.a
+                data-smash-target
+                key={link.label}
+                href={link.href}
+                target={isWebLink ? "_blank" : undefined}
+                rel={isWebLink ? "noopener noreferrer" : undefined}
+                className="flex items-center gap-2 rounded-full border border-border bg-card/50 px-5 py-2.5 text-sm font-medium text-foreground backdrop-blur-sm transition-colors hover:border-primary/50 hover:text-primary"
+                whileHover={{ y: -2, scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              >
+                <link.icon className="h-4 w-4" />
+                {link.label}
+              </motion.a>
+            );
+          })}
         </RevealItem>
       </SectionReveal>
 

@@ -9,3 +9,6 @@
 /.vercel/
 .vercel
 .env*
+
+# Playwright MCP debug artifacts
+/.playwright-mcp/
